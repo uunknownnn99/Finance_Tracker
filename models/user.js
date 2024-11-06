@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 mongoose
-  .connect("mongodb://localhost:27017/financeTracker")
+  .connect("mongodb+srv://financeTracker:FinanceTracker@data.5veo4.mongodb.net/?retryWrites=true&w=majority&appName=data")
   .then(() => {
     console.log("User DataBase Connected");
   })
