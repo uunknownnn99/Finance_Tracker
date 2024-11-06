@@ -106,18 +106,25 @@
             </form>
           </div>
 
-          <% var trans = transactions[currentMonth] %> <%
-          trans.forEach(function(transaction) { %>
-          <li>
-            <span><%= transaction.date.toLocaleDateString('en-US') %></span> -
-            <span><%= transaction.description %></span> -
-            <span
-              class="<%= transaction.type === 'credit' ? 'amount-credit' : 'amount-debit' %>"
-            >
-              $<%= transaction.amount %>
-            </span>
-          </li>
-          <% }) %>
+         <% var trans = transactions[currentMonth] || [{ date: "-",description: "No Records Yet", amount: 0, type: "" }]; %>
+
+          <ul>
+            <% trans.forEach(function(transaction) { %>
+            <li>
+              <span>
+                <% if (transaction.date === "-") { %> <%= transaction.date %> <%
+                } else { %> <%= new
+                Date(transaction.date).toLocaleDateString('en-US') %> <% } %>
+              </span>
+              - <span><%= transaction.description %></span> -
+              <span
+                class="<%= transaction.type === 'credit' ? 'amount-credit' : 'amount-debit' %>"
+              >
+                <% if (transaction.amount !== 0) { %> $<%= transaction.amount %>
+                <% } else { %> No Amount <% } %>
+              </span>
+            </li>
+            <% }); %>
         </section>
       </div>
     </div>
