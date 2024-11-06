@@ -1,6 +1,7 @@
 const express = require("express");
 const cookieParser = require("cookie-parser");
 const jwt = require("jsonwebtoken");
+const port = process.env.PORT || 4000;
 
 const { handleLogin, handleSignUp } = require("./controllers/user");
 const Expenses = require("./models/expense");
@@ -119,6 +120,6 @@ app.post("/debit", async (req, res) => {
   res.redirect("finance");
 });
 
-app.listen(3001, () => {
-  console.log("http://localhost:3001/");
+app.listen(port, () => {
+  console.log(`Listning at ${port}`);
 });
