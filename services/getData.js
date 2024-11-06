@@ -22,13 +22,15 @@ async function getExpenseByMonth(username) {
 async function getTotalExpense(currentMonth,exp){
   let total = 0;
   const transactions = exp[currentMonth];
-  transactions.forEach(transaction => {
-    if(transaction.type == 'credit'){
-      total += transaction.amount;
-    }else{
-      total -= transaction.amount;
-    }
-  });
+  if(transactions){
+    transactions.forEach(transaction => {
+      if(transaction.type == 'credit'){
+        total += transaction.amount;
+      }else{
+        total -= transaction.amount;
+      }
+    });
+  }
   return total;
 }
 module.exports = { getExpenseByMonth, getTotalExpense }
