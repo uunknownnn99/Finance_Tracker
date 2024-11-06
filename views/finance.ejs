@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Finance Dashboard</title>
+    <link rel="stylesheet" href="/styled.css" />
+    <!-- Link to CSS file -->
+  </head>
+  <body>
+    <div class="container">
+      <!-- Top Section for Welcome Message and Website Name -->
+      <header class="header">
+        <h1>Welcome, <%= username %>!</h1>
+        <h2>Finance Manager</h2>
+      </header>
+
+      <!-- Main Content -->
+      <div class="main-content">
+        <!-- Left Side: Credit/Debit Buttons, Forms, Monthly Total -->
+        <aside class="sidebar">
+          <div class="buttons">
+            <button class="credit-button" onclick="showForm('credit')">
+              Credit
+            </button>
+            <button class="debit-button" onclick="showForm('debit')">
+              Debit
+            </button>
+          </div>
+
+          <!-- Credit Form -->
+          <form
+            id="credit-form"
+            class="transaction-form"
+            action="/credit"
+            method="POST"
+            style="display: none"
+          >
+            <h3>Credit Transaction</h3>
+            <label for="credit-amount">Amount:</label>
+            <input type="number" id="credit-amount" name="amount" required />
+
+            <label for="credit-description">Description:</label>
+            <input
+              type="text"
+              id="credit-description"
+              name="description"
+              required
+            />
+
+            <button type="submit">Add Credit</button>
+          </form>
+
+          <!-- Debit Form -->
+          <form
+            id="debit-form"
+            class="transaction-form"
+            action="/debit"
+            method="POST"
+            style="display: none"
+          >
+            <h3>Debit Transaction</h3>
+            <label for="debit-amount">Amount:</label>
+            <input type="number" id="debit-amount" name="amount" required />
+
+            <label for="debit-description">Description:</label>
+            <input
+              type="text"
+              id="debit-description"
+              name="description"
+              required
+            />
+
+            <button type="submit">Add Debit</button>
+          </form>
+
+          <div class="monthly-total">
+            <h3>Month: <span id="month"><%= currentMonth %></span></h3>
+            <h4>
+              Total Expense: <span id="total-expense"><%= totalExpense %></span>
+            </h4>
+          </div>
+        </aside>
+
+        <!-- Right Side: Transactions and Month Changer -->
+        <section class="transaction-list">
+          <div class="month-changer">
+            <form action="/finance/prev" method="GET">
+              <input
+                type="hidden"
+                name="currentMonth"
+                value="<%= currentMonth %>"
+              />
+              <button type="submit">Previous</button>
+            </form>
+
+            <h3>Transactions in <%= currentMonth %></h3>
+
+            <form action="/finance/next" method="GET">
+              <input
+                type="hidden"
+                name="currentMonth"
+                value="<%= currentMonth %>"
+              />
+              <button type="submit">Next</button>
+            </form>
+          </div>
+
+          <% var trans = transactions[currentMonth] %> <%
+          trans.forEach(function(transaction) { %>
+          <li>
+            <span><%= transaction.date.toLocaleDateString('en-US') %></span> -
+            <span><%= transaction.description %></span> -
+            <span
+              class="<%= transaction.type === 'credit' ? 'amount-credit' : 'amount-debit' %>"
+            >
+              $<%= transaction.amount %>
+            </span>
+          </li>
+          <% }) %>
+        </section>
+      </div>
+    </div>
+
+    <script>
+      function showForm(type) {
+        const creditForm = document.getElementById("credit-form");
+        const debitForm = document.getElementById("debit-form");
+
+        if (type === "credit") {
+          creditForm.style.display = "block";
+          debitForm.style.display = "none";
+        } else if (type === "debit") {
+          debitForm.style.display = "block";
+          creditForm.style.display = "none";
+        }
+      }
+    </script>
+  </body>
+</html>
