@@ -120,7 +120,7 @@
               <span
                 class="<%= transaction.type === 'credit' ? 'amount-credit' : 'amount-debit' %>"
               >
-                <% if (transaction.amount !== 0) { %> $<%= transaction.amount %>
+                <% if (transaction.amount !== 0) { %> ₹<%= transaction.amount %>
                 <% } else { %> No Amount <% } %>
               </span>
             </li>
