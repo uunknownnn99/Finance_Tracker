@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Finance Tracker</title>
-    <link rel="stylesheet" href="/style.css" />
+    <link rel="stylesheet" href="style.css">
   </head>
   <body>
     <header class="header">
@@ -59,20 +59,21 @@
         </form>
       </div>
     </div>
+
     <% if (error) { %>
     <div class="error">
-      <pre style="color: red"> <%= error %></pre>
+      <pre><%= error %></pre>
     </div>
     <% } %>
 
     <script>
       // JavaScript to toggle modals
       document.getElementById("loginBtn").onclick = function () {
-        document.getElementById("loginForm").style.display = "block";
+        document.getElementById("loginForm").style.display = "flex";
       };
 
       document.getElementById("signupBtn").onclick = function () {
-        document.getElementById("signupForm").style.display = "block";
+        document.getElementById("signupForm").style.display = "flex";
       };
 
       document.getElementById("closeLogin").onclick = function () {
@@ -96,17 +97,13 @@
       const loginPasswordInput = document.getElementById("loginPassword");
       const showLoginPassword = document.getElementById("showLoginPassword");
       showLoginPassword.addEventListener("change", () => {
-        loginPasswordInput.type = showLoginPassword.checked
-          ? "text"
-          : "password";
+        loginPasswordInput.type = showLoginPassword.checked ? "text" : "password";
       });
 
       const signupPasswordInput = document.getElementById("signupPassword");
       const showSignupPassword = document.getElementById("showSignupPassword");
       showSignupPassword.addEventListener("change", () => {
-        signupPasswordInput.type = showSignupPassword.checked
-          ? "text"
-          : "password";
+        signupPasswordInput.type = showSignupPassword.checked ? "text" : "password";
       });
     </script>
   </body>
